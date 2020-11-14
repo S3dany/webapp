@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>users</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'logout' %}">Logout</a>
+        <h2>Group members</h2>
+        <ul>
+            {% for user in clickedgroup %}
+
+                    <a href="{% url 'add_to_group' 'remove' user.id mygroup %}">
+
+                         <li>{{ user.username }}  {{ user.person.shares.}}</li>
+                    </a>
+
+            {% endfor %}
+        </ul>
+
+         <h2>Friends</h2>
+        <ul>
+            {% for one in people %}
+                <a href="{% url 'add_to_group' 'add' one.id mygroup %}">
+                    <li>{{ one.person }} </li>
+                </a>
+            {% endfor %}
+        </ul>
+
+         <h2>You</h2>
+        <ul>
+                {% if you not in clickedgroup %}
+                <a href="{% url 'add_to_group' 'add' you.id mygroup %}">
+                     <li>{{ you.person }} </li>
+                </a>
+                {% endif %}
+        </ul>
+
+        <h2>Bills</h2>
+        <ul>
+            {% for one in group_bills %}
+
+            <li>
+                <h6>{{one}} {{ one.timestamp }}</h6>
+                <ul>
+                    {% for i in one.items.all %}
+                        <li>{{ i }}  {{ i.price }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            {% endfor %}
+        </ul>
+
+
+        <a href="{% url 'create_bill' mygroup %}">Create new bill</a>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
